@@ -1,0 +1,217 @@
+/* CSS for jass.css */
+
+/* Add your styles specific to jass.css here */
+
+/* CSS for style.css */
+
+/* Add your styles specific to style.css here */
+
+/* General CSS */
+
+/* Reset default margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set body font and background */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+
+/* Header styles */
+header {
+  background-color: #333;
+  color: #fff;
+}
+
+header nav {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+}
+
+header nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+header h1 {
+  font-size: 24px;
+  padding: 10px;
+}
+
+/* Main styles */
+.main-container {
+  margin-top: 20px;
+}
+
+/* Footer styles */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+/* Additional styles */
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.justify-space-around {
+  justify-content: space-around;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.p-2 {
+  padding: 8px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.mt-5 {
+  margin-top: 20px;
+}
+
+.no-button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Additional styles for logged in users */
+#logout {
+  background-color: #f00;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.card a {
+  text-decoration: none;
+  color: #333;
+}
+
+.card header {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.card p {
+  margin-bottom: 5px;
+}
+
+.card-body {
+  background-color: #f5f5f5;
+  padding: 10px;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+form div {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background-color: #f44336;
+}
+
+.dashboard-section {
+  margin-bottom: 20px;
+}
+
+.dashboard-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.card-body {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.new-post-section {
+  margin-top: 20px;
+}
+
+.new-post-container {
+  text-align: center;
+}
+
+.new-post-link {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.new-post-link:hover {
+  background-color: #45a049;
+}

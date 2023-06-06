@@ -1,0 +1,23 @@
+<section class="card">
+    <header>{{post.post_title}}</header>
+    <p>{{post.date_created}}</p>
+    <p>{{post.user.name}}</p>
+    <div class="card-body">
+      <p>{{post.comment}}</p>
+    </div>
+</section>
+<section>
+    {{#each comments as |comment| }}
+        {{>comment-details}}
+    {{/each}}
+</section>
+<section>
+    <dvi>
+        <form action="/comments" method="POST">
+        <input type="hidden" name="postId" value="{{post.id}}">
+        <label for="comment">Comment:</label>
+        <textarea name="comment" id="comment" rows="4" cols="50"></textarea>
+        <button type="submit">Submit</button>
+        </form>
+    </dvi>
+</section>

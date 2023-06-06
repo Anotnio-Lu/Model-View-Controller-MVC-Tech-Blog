@@ -1,0 +1,19 @@
+<h1>Edit Post</h1>
+
+<form action="/edit-post/{{post.id}}" method="POST">
+  <div>
+    <label for="postTitle">Title</label>
+    <input type="text" id="editTitle" name="editTitle" value="{{post.post_title}}" required>
+  </div>
+  <div>
+    <label for="comment">Content</label>
+    <textarea id="comment" name="comment" required>{{post.comment}}</textarea>
+  </div>
+
+  <button type="submit">Update Post</button>
+</form>
+
+<form action="/delete-post/{{post.id}}" method="POST">
+  <button type="submit" class="delete-btn">Delete Post</button>
+</form>
+
