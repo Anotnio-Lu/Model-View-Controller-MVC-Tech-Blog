@@ -9,11 +9,12 @@ router.post('/', async (req, res) => {
       email: req.body.email,
       password: req.body.password,
     });
-
+    
+    const userData = await User.findOne({ where: { email: req.body.email } });
     req.session.save(() => {
       req.session.loggedIn = true;
       req.session.userName = req.body.username;
-    
+      req.session.userId = userData.id;
       res.status(200).json(dbUserData);
     });
   } catch (err) {

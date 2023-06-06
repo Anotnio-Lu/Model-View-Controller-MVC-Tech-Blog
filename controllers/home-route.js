@@ -163,18 +163,15 @@ router.post('/edit-post/:id', async (req, res) => {
     const postId = req.params.id;
     const { editTitle, comment } = req.body;
 
-    // Find the post by ID
     const post = await Posts.findByPk(postId);
 
     if (!post) {
       return res.status(404).json({ error: 'Post not found' });
     }
 
-    // Update the post fields
     post.post_title = editTitle;
     post.comment = comment;
 
-    // Save the updated post
     await post.save();
 
     res.redirect('/dashboard');
@@ -188,11 +185,9 @@ router.post('/edit-post/:id', async (req, res) => {
 router.post('/delete-post/:id', async (req, res) => {
   try {
     const postId = req.params.id;
-
-    // Delete the post based on the postId
     await Posts.destroy({ where: { id: postId } });
 
-    res.redirect('/dashboard'); // Redirect to a desired page after deletion
+    res.redirect('/dashboard'); 
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: 'Failed to delete post' });
@@ -255,8 +250,6 @@ router.post('/comments', async (req, res) => {
     });
 
     const comments = commentData.map((comment) => comment.get({ plain: true }));
-    console.log(comments)
-
     res.render('post', {
       post,
       comments,
