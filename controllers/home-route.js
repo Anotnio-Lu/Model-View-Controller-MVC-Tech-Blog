@@ -1,10 +1,12 @@
 const router = require('express').Router();
-const { Comments, User } = require('../models');
+const { Posts, User} = require('../models');
+const Comment = require('../models/Comments');
+
 
 // GET all galleries for homepage
 router.get('/', async (req, res) => {
   try {
-    const dbcommentData = await Comments.findAll({
+    const dbcommentData = await Posts.findAll({
       include: [
         {
           model: User,
@@ -18,7 +20,7 @@ router.get('/', async (req, res) => {
     const posts = dbcommentData.map((post) =>
       post.get({ plain: true })
     );
-    console.log(posts)
+
 
     res.render('homepage', {
       posts,
@@ -33,7 +35,7 @@ router.get('/', async (req, res) => {
 
 router.get('/homepage', async (req, res) => {
   try {
-    const dbcommentData = await Comments.findAll({
+    const dbcommentData = await Posts.findAll({
       include: [
         {
           model: User,
@@ -45,7 +47,7 @@ router.get('/homepage', async (req, res) => {
     const posts = dbcommentData.map((post) =>
       post.get({ plain: true })
     );
-    console.log(posts)
+
 
     res.render('homepage', {
       posts,
@@ -57,26 +59,62 @@ router.get('/homepage', async (req, res) => {
   }
 });
 
+router.get('/post/:id', async (req, res) => {
+  if (!req.session.loggedIn) {
+    res.redirect('/login');
+  } else {
+  try {
+    const dbData = await Posts.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          attributes: ['name'],
+        },
+      ],
+    });
+
+    const post = dbData.get({ plain: true });
+
+    const commentData = await Comment.findAll({
+      where: {
+        post_id: req.params.id,
+      },
+      include: [
+        {
+          model: User,
+          attributes: ['name'],
+        },
+      ],
+    });
+
+    const comments = commentData.map((comment) => comment.get({ plain: true }));
+    console.log(comments)
+
+    res.render('post', {
+      post,
+      comments,
+      loggedIn: req.session.loggedIn 
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+}
+});
+
 router.get('/dashboard', async (req, res) => {
   if (!req.session.loggedIn) {
     res.redirect('/login');
   } else {
     try {
-      // console.log(req.session.userId)
       const userId = req.session.userId
 
-      // Fetch the user's data based on the retrieved ID
-      // const userData = await User.findOne({ where: { id: userId } });
-
-      // Fetch the user's comments data, including the associated User model
-      const dbcommentData = await Comments.findAll({
+      const dbcommentData = await Posts.findAll({
         where: { user_id: userId },
         include: [{ model: User, attributes: ['name'] }],
       });
 
-      // Transform the data to plain objects
       const personalPosts = dbcommentData.map((post) => post.get({ plain: true }));
-      console.log(personalPosts[0].id)
 
       res.render('dashboard', { 
         personalPosts, 
@@ -93,22 +131,70 @@ router.get('/dashboard', async (req, res) => {
 
 router.post('/new-post', async (req, res) => {
   try {
-    // Get the form data from the request body
     const { postTitle, comment } = req.body;
 
-    // Create a new post using the Comments model
-    const newPost = await Comments.create({
+    const newPost = await Posts.create({
       post_title: postTitle,
       comment: comment,
-      // Set the user_id based on the logged-in user or any other authentication method you're using
-      user_id: req.session.userId, // Assuming you've stored the user ID in req.session.userId
+      user_id: req.session.userId, 
     });
 
-    // Redirect to a success page or the newly created post
     res.redirect(`/dashboard`);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
+  }
+});
+
+
+router.post('/comments', async (req, res) => {
+  try {
+    const { postId, comment } = req.body;
+    console.log(req.body)
+
+    const userId = req.session.userId;
+
+    const newComment = await Comment.create({
+      post_id: postId,
+      user_id: userId,
+      content: comment,
+    });
+
+    const dbData = await Posts.findByPk(postId, {
+      include: [
+        {
+          model: User,
+          attributes: ['name'],
+        },
+      ],
+    });
+
+    const post = dbData.get({ plain: true });
+
+    const commentData = await Comment.findAll({
+      where: {
+        post_id: postId,
+      },
+      include: [
+        {
+          model: User,
+          attributes: ['name'],
+        },
+      ],
+    });
+
+    const comments = commentData.map((comment) => comment.get({ plain: true }));
+    console.log(comments)
+
+    res.render('post', {
+      post,
+      comments,
+      loggedIn: req.session.loggedIn 
+    });
+    
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: 'Failed to create comment' });
   }
 });
 

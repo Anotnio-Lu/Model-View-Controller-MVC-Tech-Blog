@@ -1,9 +1,9 @@
 <section class="card">
-    <!-- The card contains the painting name as the card header -->
-    <header>{{post_title}}</header>
+    <a href="/post/{{id}}">
+      <header>{{post_title}}</header>
+    </a>
     <p>{{date_created}}</p>
     <p>{{user.name}}</p>
-    <!-- In the body of the card, the painting is rendered along with the artist name -->
     <div class="card-body">
       <p>{{comment}}</p>
     </div>
