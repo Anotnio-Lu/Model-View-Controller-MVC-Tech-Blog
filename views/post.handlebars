@@ -1,6 +1,6 @@
 <section class="card">
     <header>{{post.post_title}}</header>
-    <p>{{post.date_created}}</p>
+    <p>{{format_date post.date_created}}</p>
     <p>{{post.user.name}}</p>
     <div class="card-body">
       <p>{{post.comment}}</p>
