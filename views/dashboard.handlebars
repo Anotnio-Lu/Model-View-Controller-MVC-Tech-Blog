@@ -1,14 +1,13 @@
-<section class="card">
-    <h1>Your dashboard</h1>
+<section class="dashboard-section card">
+    <h1 class="dashboard-title">Your dashboard</h1>
     <div class="card-body">
         {{#each personalPosts as |post| }}
             {{>dash-details}}
         {{/each}}
     </div>
 </section>
-<section class="">
-    <div class="">
-      <a href="/new-post">New Post</a>
+<section class="new-post-section">
+    <div class="new-post-container">
+      <a href="/new-post" class="new-post-link">New Post</a>
     </div>
 </section>
-
